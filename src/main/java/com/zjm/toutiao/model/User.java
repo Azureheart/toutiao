@@ -6,6 +6,7 @@ public class User {
     private String password;
     private String salt;
     private String headUrl;
+    private int active;
     public User() {
 
     }
@@ -55,4 +56,13 @@ public class User {
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl;
     }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
 }

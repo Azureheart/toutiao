@@ -14,6 +14,7 @@ public class ToutiaoUtil {
     public static String TouTiao_DOMAIN="http://localhost:8080/";
     public static String IMAGE_DIR="C:/ToutiaoUpload/";
     public static  String[] IMAGE_FILE_EXT={"png","bmp","jpg","jpeg"};
+    public static String COMFIRM_EMAIL_PREFIX="http://localhost:8080/confirm_email/";
 
     public static boolean isFileAllowed(String fileExt){
             for(String ext:IMAGE_FILE_EXT){

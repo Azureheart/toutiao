@@ -5,6 +5,7 @@ import com.zjm.toutiao.async.EventProducer;
 import com.zjm.toutiao.async.EventType;
 import com.zjm.toutiao.model.HostHolder;
 import com.zjm.toutiao.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,13 @@ public class LoginController {
                       HttpServletResponse response) {
         try {
             Map<String,Object> map=userService.register(username,password);
-            if(map.containsKey("ticket")){
-                Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
-                cookie.setPath("/");//设置cookie路径全部有效
-                if(rememberme>0){
-                    cookie.setMaxAge(3600*24*5);
-                }
-                response.addCookie(cookie);
+           if(map.containsKey("active")){
+//                Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
+//                cookie.setPath("/");//设置cookie路径全部有效
+//                if(rememberme>0){
+//                    cookie.setMaxAge(3600*24*5);
+//                }
+//                response.addCookie(cookie);
                 return ToutiaoUtil.getJSONString(0,"注册成功");
             }else{
                 return ToutiaoUtil.getJSONString(1,map);
@@ -86,5 +87,19 @@ public class LoginController {
     public String login(@CookieValue("ticket") String ticket){
         userService.logout(ticket);
         return "redirect:/";
+    }
+
+    @RequestMapping(path = "/confirm_email/{confirmCode}",method = RequestMethod.GET)
+    public String ConfirmUser(@PathVariable("confirmCode") String confirmCode,
+                              @Param("key") String key,
+                              HttpServletResponse response){
+            Map<String,Object> map=userService.ConfirmCode(confirmCode, key);
+            if(map.containsKey("ticket")){
+                Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
+                cookie.setPath("/");//设置cookie路径全部有效
+                cookie.setMaxAge(3600*24*5);
+                response.addCookie(cookie);
+            }
+            return "redirect:/";
     }
 }

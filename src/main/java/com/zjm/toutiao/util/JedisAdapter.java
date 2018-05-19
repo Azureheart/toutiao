@@ -209,6 +209,20 @@ public class JedisAdapter implements InitializingBean{
         }
     }
 
+    public void expire(String key,int second){
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+             jedis.expire(key,second);
+        } catch (Exception e) {
+            logger.error("发生异常" + e.getMessage());
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
     public void set(String key, String value) {
         Jedis jedis = null;
         try {

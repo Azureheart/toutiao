@@ -91,6 +91,7 @@
                 }).done(function (oResult) {
                     if (oResult.code === 0) {
 //                        window.location.reload();
+                        alert('请在一小时内登陆邮箱完成激活账户哦~~');
                         that.emit('register');
                     } else {
                         oResult.msgname && that.iptError(that.emailIpt, oResult.msgname);
