@@ -56,6 +56,7 @@ CREATE TABLE `message` (
   `created_date` DATETIME NULL,
   `has_read` INT NULL,
   `conversation_id` VARCHAR(45) NOT NULL,
+  `status` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `conversation_index` (`conversation_id` ASC),
   INDEX `created_date` (`created_date` ASC))

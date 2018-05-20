@@ -16,7 +16,8 @@ public class MessageService {
        return messageDAO.addMessage(message);
     }
 
-    public List<Message> getConversationDetail(String conversationId,int offset,int limit){
+    public List<Message> getConversationDetail(String conversationId,int offset,int limit,int userId){
+        messageDAO.updateHasReadMessage(1,userId,conversationId);
         return messageDAO.getConversationDetail(conversationId,offset,limit);
     }
 
@@ -28,4 +29,7 @@ public class MessageService {
         return messageDAO.getConversationUnreadCount(userId,conversationId);
     }
 
+    public int deleteMessage(int id){
+        return messageDAO.updateMessageStatus(id,1);
+    }
 }

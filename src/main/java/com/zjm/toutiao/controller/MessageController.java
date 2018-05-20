@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -38,9 +39,9 @@ public class MessageController {
 
     @RequestMapping(path = {"/msg/addMessage"},method = RequestMethod.POST)
     @ResponseBody
-    public String addMessage(@Param("fromId") int fromId,
-                             @Param("toId") int toId,
-                             @Param("content") String content){
+    public String addMessage(@RequestParam("fromId") int fromId,
+                             @RequestParam("toId") int toId,
+                             @RequestParam("content") String content){
         try {
             Message message = new Message();
             message.setFromId(fromId);
@@ -58,9 +59,9 @@ public class MessageController {
     }
 
     @RequestMapping(path = {"/msg/detail"},method = RequestMethod.GET)
-    public String conversationDetail(Model model, @Param("conversationId") String conversationId){
+    public String conversationDetail(Model model, @RequestParam("conversationId") String conversationId){
         try{
-            List<Message> conversationList=messageService.getConversationDetail(conversationId,0,10);
+            List<Message> conversationList=messageService.getConversationDetail(conversationId,0,10,hostHolder.getUser().getId());
             List<ViewObject> messages= new ArrayList<>();
             for(Message msg:conversationList){
                 ViewObject vo=new ViewObject();
@@ -101,5 +102,12 @@ public class MessageController {
             logger.error("获取会话列表出错"+e.getMessage());
         }
         return  "letter";
+    }
+
+    @RequestMapping(path = {"/msg/delete"},method = RequestMethod.GET)
+    public String deleteMessage(@RequestParam("conversationId") String conversationId,
+                                @RequestParam("id") int id){
+        messageService.deleteMessage(id);
+        return "redirect:http://localhost:8080/msg/detail?conversationId="+conversationId;
     }
 }
