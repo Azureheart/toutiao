@@ -16,7 +16,7 @@
             </div>
             <div class="content">
                 <div class="content-img">
-                    <img src="${news.image}" alt="">
+                   <a href="${news.image}"> <img src="${news.image}?imageMogr2/auto-orient/thumbnail/100x80!/blur/1x0/quality/75|imageslim" alt=""></a>
                 </div>
                 <div class="content-main">
                     <h3 class="title">

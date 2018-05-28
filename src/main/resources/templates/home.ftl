@@ -8,17 +8,17 @@
                     <#assign cur_date=''>
                     <#list vos as vo>
                     <#if cur_date!=(vo.news.createdDate)?string("yyyy-MM-dd")>
-                    <#if vo?is_first==true>
-                </div><#--第一个vo开始啦-->
-            </#if>
-            <#assign cur_date=(vo.news.createdDate)?string("yyyy-MM-dd")>
-            <h3 class="date">
-                <i class="fa icon-calendar"></i>
-                <span>头条资讯 &nbsp; ${(vo.news.createdDate)?string("yyyy-MM-dd")}</span>
-            </h3>
+                        <#if vo?is_first!=true>
+                            </div><#--第一个vo开始啦-->
+                        </#if>
+                    <#assign cur_date=(vo.news.createdDate)?string("yyyy-MM-dd")>
+                    <h3 class="date">
+                        <i class="fa icon-calendar"></i>
+                        <span>头条资讯 &nbsp; ${(vo.news.createdDate)?string("yyyy-MM-dd")}</span>
+                    </h3>
 
-            <div class="posts">
-            </#if>
+                     <div class="posts">
+                     </#if>
             <div class="post">
                 <div class="votebar">
                     <#if vo.like gt 0>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="content" data-url="http://nowcoder.com/posts/5l3hjr">
                     <div >
-                        <img class="content-img" src="${vo.news.image}" alt="">
+                        <img class="content-img" src="${vo.news.image}?imageMogr2/auto-orient/thumbnail/100x80!/blur/1x0/quality/75|imageslim" alt="">
                     </div>
                     <div class="content-main">
                         <h3 class="title">
@@ -58,13 +58,14 @@
                 <div class="subject-name">来自 <a href="/user/${vo.user.id}/">${vo.user.name}</a></div>
             </div>
 
-            <#if vo?is_last==true>
-        </div><#--最后一个循环项-->
-            </#if>
-            </#list>
-        </div>
+                <#if vo?is_last==true>
+                </div><#--最后一个循环项-->
+                </#if>
+                </#list>
+            </div>
         </div>
     </div>
+
 
 <#if pop??>
 <script>

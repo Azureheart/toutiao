@@ -33,7 +33,7 @@ public class HomeController {
     LikeService likeService;
 
     private List<ViewObject> getNews(int userId,int offset,int limit){//offset从哪条数据开始
-        List<News> newsList=newsService.getLatestNews(userId,offset,10);
+        List<News> newsList=newsService.getLatestNews(userId,offset,500);
         int localUserId=hostHolder.getUser()!=null?hostHolder.getUser().getId():0;
         List<ViewObject> vos=new ArrayList<>();
         for(News news:newsList){
